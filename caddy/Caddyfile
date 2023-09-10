@@ -1,0 +1,35 @@
+catallenya.kamori-mulley.ts.net:3111 {
+    reverse_proxy flame:5005
+}
+
+catallenya.kamori-mulley.ts.net:4111 {
+    reverse_proxy syncthing:8384
+}
+
+catallenya.kamori-mulley.ts.net:5111 {
+    reverse_proxy immich-proxy:8080
+}
+
+catallenya.kamori-mulley.ts.net:6111 {
+    reverse_proxy memos:5230
+}
+
+catallenya.kamori-mulley.ts.net:7111 {
+    reverse_proxy vaultwarden:80
+}
+
+catallenya.kamori-mulley.ts.net:8111 {
+    reverse_proxy radicale:5232
+}
+
+catallenya.kamori-mulley.ts.net:9111 {
+    reverse_proxy agendav:8080
+}
+
+catallenya.kamori-mulley.ts.net:10111 {
+    reverse_proxy cryptpad:3009
+}
+
+catallenya.kamori-mulley.ts.net:11111 {
+    reverse_proxy gitea:3000
+}

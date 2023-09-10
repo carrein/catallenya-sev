@@ -1,0 +1,13 @@
+*
+
+!.gitignore
+!README.md
+
+
+!caddy/
+!caddy/Caddyfile
+
+!restic/
+!restic/*
+restic/restic-config
+restic/restic-password
