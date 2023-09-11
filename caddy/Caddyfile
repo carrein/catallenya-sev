@@ -1,35 +1,31 @@
-catallenya.kamori-mulley.ts.net:3111 {
+{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$FLAME_REVERSE_PROXY_PORT} {
     reverse_proxy flame:5005
 }
 
-catallenya.kamori-mulley.ts.net:4111 {
+{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$SYNCTHING_REVERSE_PROXY_PORT} {
     reverse_proxy syncthing:8384
 }
 
-catallenya.kamori-mulley.ts.net:5111 {
+{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$IMMICH_REVERSE_PROXY} {
     reverse_proxy immich-proxy:8080
 }
 
-catallenya.kamori-mulley.ts.net:6111 {
+{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$MEMOS_REVERSE_PROXY_PORT} {
     reverse_proxy memos:5230
 }
 
-catallenya.kamori-mulley.ts.net:7111 {
+{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$VAULTWARDEN_REVERSE_PROXY_PORT} {
     reverse_proxy vaultwarden:80
 }
 
-catallenya.kamori-mulley.ts.net:8111 {
+{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$RADICALE_REVERSE_PROXY_PORT} {
     reverse_proxy radicale:5232
 }
 
-catallenya.kamori-mulley.ts.net:9111 {
+{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$AGENDAV_REVERSE_PROXY_PORT} {
     reverse_proxy agendav:8080
 }
 
-catallenya.kamori-mulley.ts.net:10111 {
-    reverse_proxy cryptpad:3009
-}
-
-catallenya.kamori-mulley.ts.net:11111 {
+{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$GITEA_REVERSE_PROXY_PORT} {
     reverse_proxy gitea:3000
 }
