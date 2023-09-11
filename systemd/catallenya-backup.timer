@@ -1,0 +1,8 @@
+[Unit]
+Description=catallenya backup timer.
+
+[Timer]
+OnCalendar=*-*-* 0:00:00
+
+[Install]
+WantedBy=timers.target

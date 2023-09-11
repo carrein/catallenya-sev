@@ -1,0 +1,13 @@
+[Unit]
+Description=catallenya forget service.
+After=syslog.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/etc/restic/catallenya.forget.sh
+AmbientCapabilities=CAP_DAC_READ_SEARCH
+
+[Install]
+WantedBy=multi-user.target

@@ -11,3 +11,6 @@
 !restic/*
 restic/restic-config
 restic/restic-password
+
+!systemd/
+!systemd/*
