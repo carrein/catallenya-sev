@@ -29,3 +29,15 @@
 {$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$GITEA_REVERSE_PROXY_PORT} {
     reverse_proxy gitea:3000
 }
+
+{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$GHOST_REVERSE_PROXY_PORT} {
+    reverse_proxy ghost:2368
+}
+
+{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$NTFY_REVERSE_PROXY_PORT} {
+    reverse_proxy ntfy:80
+}
+
+{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$STIRLING_PDF_REVERSE_PROXY_PORT} {
+    reverse_proxy stirling_pdf:8080
+}
