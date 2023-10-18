@@ -2,7 +2,7 @@
 
 !.gitignore
 !README.md
-
+!docker-compose.yml
 
 !caddy/
 !caddy/Caddyfile
@@ -14,3 +14,7 @@ restic/restic-password
 
 !systemd/
 !systemd/*
+
+!ntfy/
+!ntfy/*
+ntfy/ntfy-message-config

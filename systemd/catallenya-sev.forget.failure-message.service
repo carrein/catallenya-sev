@@ -1,12 +1,12 @@
 [Unit]
-Description=catallenya backup service.
+Description=Failure notification for weekly catallena-sev forget
 After=syslog.target
 After=network-online.target
 
 [Service]
 Type=oneshot
 User=root
-ExecStart=/etc/restic/catallenya.backup.sh
+ExecStart=/etc/restic/catallenya-sev.forget.failure-message.sh
 AmbientCapabilities=CAP_DAC_READ_SEARCH
 
 [Install]

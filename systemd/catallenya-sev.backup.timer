@@ -1,0 +1,8 @@
+[Unit]
+Description=Daily catallenya-sev backup timer
+
+[Timer]
+OnCalendar=*-*-* 0:00:00
+
+[Install]
+WantedBy=timers.target

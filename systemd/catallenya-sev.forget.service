@@ -1,0 +1,15 @@
+[Unit]
+Description=Weekly catallenya-sev forget sevice
+After=syslog.target
+After=network-online.target
+OnSuccess=catallenya-sev.forget.success-message.service
+OnFailure=catallenya-sev.forget.failure-message.service
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/etc/restic/catallenya-sev.forget.sh
+AmbientCapabilities=CAP_DAC_READ_SEARCH
+
+[Install]
+WantedBy=multi-user.target

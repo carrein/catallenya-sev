@@ -1,0 +1,8 @@
+[Unit]
+Description=Weekly catallenya-sev forget timer
+
+[Timer]
+OnCalendar=Mon *-*-* 12:00:00
+
+[Install]
+WantedBy=timers.target

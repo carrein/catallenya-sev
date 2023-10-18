@@ -1,0 +1,15 @@
+[Unit]
+Description=Monthly catallenya-sev check service
+After=syslog.target
+After=network-online.target
+OnSuccess=catallenya-sev.check.success-message.service
+OnFailure=catallenya-sev.check.failure-message.service
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/etc/restic/catallenya-sev.check.sh
+AmbientCapabilities=CAP_DAC_READ_SEARCH
+
+[Install]
+WantedBy=multi-user.target

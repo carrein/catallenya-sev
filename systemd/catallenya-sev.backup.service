@@ -1,0 +1,15 @@
+[Unit]
+Description=Daily catallenya-sev backup service
+After=syslog.target
+After=network-online.target
+OnSuccess=catallenya-sev.backup.success-message.service
+OnFailure=catallenya-sev.backup.failure-message.service
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/etc/restic/catallenya-sev.backup.sh
+AmbientCapabilities=CAP_DAC_READ_SEARCH
+
+[Install]
+WantedBy=multi-user.target

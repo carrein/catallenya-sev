@@ -1,0 +1,13 @@
+[Unit]
+Description=Failure notification for monthly catallena-sev check
+After=syslog.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/etc/restic/catallenya-sev.check.failure-message.sh
+AmbientCapabilities=CAP_DAC_READ_SEARCH
+
+[Install]
+WantedBy=multi-user.target
