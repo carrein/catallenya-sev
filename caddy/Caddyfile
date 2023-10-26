@@ -41,3 +41,21 @@
 {$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$STIRLING_PDF_REVERSE_PROXY_PORT} {
     reverse_proxy stirling_pdf:8080
 }
+
+# We configure our own reverse proxy for Ghost. Since we are handling the SSL termination,
+# we set headers to coerce Ghost to trust the connection.
+# See: 
+# https://caddy.community/t/solve-infinite-301-loop-then-502-with-ghost-and-caddy/7226
+# https://ghost.org/docs/faq/proxying-https-infinite-loops/
+:80 {
+    reverse_proxy ghost:2368 {
+      header_up Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+      # this one is done automatically for you by Caddy
+      # header_up Host {host}
+
+      header_up X-Forwarded-Proto "https"
+      header_up X-Forwarded-For {remote}
+      header_up X-Real-IP {remote}
+    }
+}
