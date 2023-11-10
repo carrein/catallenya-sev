@@ -10,10 +10,6 @@
     reverse_proxy immich-proxy:8080
 }
 
-{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$MEMOS_REVERSE_PROXY_PORT} {
-    reverse_proxy memos:5230
-}
-
 {$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$VAULTWARDEN_REVERSE_PROXY_PORT} {
     reverse_proxy vaultwarden:80
 }
@@ -26,10 +22,6 @@
     reverse_proxy agendav:8080
 }
 
-{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$GITEA_REVERSE_PROXY_PORT} {
-    reverse_proxy gitea:3000
-}
-
 {$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$GHOST_REVERSE_PROXY_PORT} {
     reverse_proxy ghost:2368
 }
@@ -39,7 +31,7 @@
 }
 
 {$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$STIRLING_PDF_REVERSE_PROXY_PORT} {
-    reverse_proxy stirling_pdf:8080
+    reverse_proxy stirling-pdf:8080
 }
 
 # We configure our own reverse proxy for Ghost. Since we are handling the SSL termination,
@@ -47,7 +39,7 @@
 # See: 
 # https://caddy.community/t/solve-infinite-301-loop-then-502-with-ghost-and-caddy/7226
 # https://ghost.org/docs/faq/proxying-https-infinite-loops/
-:80 {
+:{$GHOST_REVERSE_PROXY_PORT} {
     reverse_proxy ghost:2368 {
       header_up Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 
@@ -58,4 +50,8 @@
       header_up X-Forwarded-For {remote}
       header_up X-Real-IP {remote}
     }
+}
+
+:{$PINGVIN_SHARE_REVERSE_PROXY_PORT} {
+  reverse_proxy pingvin-share:3000
 }
