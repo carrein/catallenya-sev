@@ -7,7 +7,7 @@
 }
 
 {$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$IMMICH_REVERSE_PROXY} {
-    reverse_proxy immich-proxy:8080
+    reverse_proxy immich-server:3001
 }
 
 {$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$VAULTWARDEN_REVERSE_PROXY_PORT} {

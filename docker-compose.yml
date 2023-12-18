@@ -163,12 +163,13 @@ services:
     command: [ "start.sh", "immich" ]
     env_file:
       - .env
+    ports:
+     - 2283:3001
     volumes:
       - ${IMMICH_VOLUME}:/usr/src/app/upload
     depends_on:
       - redis
       - database
-      - typesense
 
   # Background jobs service component for Immich.
   immich-microservices:
@@ -189,7 +190,6 @@ services:
     depends_on:
       - redis
       - database
-      - typesense
 
   # Facial recognition model for Immich. See: https://documentation.immich.app/docs/features/facial-recognition
   immich-machine-learning:
@@ -201,47 +201,10 @@ services:
     volumes:
       - model-cache:/cache
 
-  # Web interface for Immich.
-  immich-web:
-    container_name: immich_web
-    image: ghcr.io/immich-app/immich-web:release
-    restart: unless-stopped
-    networks:
-      - caddy-internal
-
-  # Search component for Immich. See: https://documentation.immich.app/docs/features/search
-  typesense:
-    container_name: immich_typesense
-    image: typesense/typesense:0.24.1@sha256:9bcff2b829f12074426ca044b56160ca9d777a0c488303469143dd9f8259d4dd
-    restart: unless-stopped
-    networks:
-      - caddy-internal
-    environment:
-      - TYPESENSE_API_KEY=${TYPESENSE_API_KEY}
-      - TYPESENSE_DATA_DIR=/data
-    volumes:
-      - tsdata:/data
-
-  # Proxy component for Immich. See: https://documentation.immich.app/docs/administration/reverse-proxy
-  immich-proxy:
-    container_name: immich_proxy
-    image: ghcr.io/immich-app/immich-proxy:release
-    restart: unless-stopped
-    networks: 
-      - caddy-internal
-    depends_on:
-      - immich-server
-      - immich-web
-    labels:
-      - flame.type=application
-      - flame.name=Immich
-      - flame.url=${IMMICH_URL}
-      - flame.icon=custom
-
   # Database component of Immich. The specific image version is tagged to the example provided in Immich documentations. 
   database:
     container_name: immich_postgres
-    image: postgres:14-alpine@sha256:28407a9961e76f2d285dc6991e8e48893503cc3836a4755bbc2d40bcc272a441
+    image: tensorchord/pgvecto-rs:pg14-v0.1.11
     restart: unless-stopped
     networks:
       - caddy-internal
@@ -399,7 +362,6 @@ secrets:
 volumes:
   redis:
   model-cache:
-  tsdata:
   ntfy:
   ntfy-cache:
 
