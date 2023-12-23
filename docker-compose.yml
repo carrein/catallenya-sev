@@ -15,7 +15,8 @@ services:
       - ${GHOST_REVERSE_PROXY_PORT}:${GHOST_REVERSE_PROXY_PORT}
       - ${FLAME_REVERSE_PROXY_PORT}:${FLAME_REVERSE_PROXY_PORT}
       - ${SYNCTHING_REVERSE_PROXY_PORT}:${SYNCTHING_REVERSE_PROXY_PORT}
-      - ${IMMICH_REVERSE_PROXY}:${IMMICH_REVERSE_PROXY}
+      - ${IMMICH_REVERSE_PROXY_PORT}:${IMMICH_REVERSE_PROXY_PORT}
+      - ${MEMOS_REVERSE_PROXY_PORT}:${MEMOS_REVERSE_PROXY_PORT}
       - ${VAULTWARDEN_REVERSE_PROXY_PORT}:${VAULTWARDEN_REVERSE_PROXY_PORT}
       - ${RADICALE_REVERSE_PROXY_PORT}:${RADICALE_REVERSE_PROXY_PORT}
       - ${AGENDAV_REVERSE_PROXY_PORT}:${AGENDAV_REVERSE_PROXY_PORT}
@@ -272,7 +273,7 @@ services:
     environment:
       - WATCHTOWER_LABEL_ENABLE=true
       - WATCHTOWER_NOTIFICATIONS=shoutrrr
-      - WATCHTOWER_NOTIFICATION_URL=ntfy://catallenya.kamori-mulley.ts.net:12111/catallenya-sev-watchtower
+      - WATCHTOWER_NOTIFICATION_URL=${NTFY_PROTOCOL_URL}/${WATCHTOWER_NTFY_TOPIC}
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_REMOVE_VOLUMES=true
       - WATCHTOWER_POLL_INTERVAL=3600
@@ -351,6 +352,21 @@ services:
       - ${PINGVIN_SHARE_DATA_VOLUME}:/opt/app/backend/data
       - ${PINGVIN_SHARE_IMAGES_VOLUME}:/opt/app/frontend/public/img
     labels:
+      - com.centurylinklabs.watchtower.enable=true
+  
+  memos:
+    container_name: memos
+    image: neosmemo/memos:latest
+    restart: unless-stopped
+    networks:
+      - caddy-internal
+    volumes:
+      - ${MEMOS_VOLUME}:/var/opt/memos
+    labels:
+      - flame.type=application
+      - flame.name=Memos
+      - flame.url=${MEMOS_URL}
+      - flame.icon=custom
       - com.centurylinklabs.watchtower.enable=true
 
 secrets:
