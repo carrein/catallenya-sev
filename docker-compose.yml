@@ -21,7 +21,6 @@ services:
       - ${RADICALE_REVERSE_PROXY_PORT}:${RADICALE_REVERSE_PROXY_PORT}
       - ${AGENDAV_REVERSE_PROXY_PORT}:${AGENDAV_REVERSE_PROXY_PORT}
       - ${NTFY_REVERSE_PROXY_PORT}:${NTFY_REVERSE_PROXY_PORT}
-      - ${STIRLING_PDF_REVERSE_PROXY_PORT}:${STIRLING_PDF_REVERSE_PROXY_PORT}
       - ${PINGVIN_SHARE_REVERSE_PROXY_PORT}:${PINGVIN_SHARE_REVERSE_PROXY_PORT}
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
@@ -311,20 +310,6 @@ services:
       - flame.type=application
       - flame.name=ntfy
       - flame.url=${NTFY_URL}
-      - flame.icon=custom
-      - com.centurylinklabs.watchtower.enable=true
-
-  # Stirling is a PDF modification service.
-  stirling-pdf:
-    container_name: stirling-pdf
-    image: frooodle/s-pdf:latest
-    restart: unless-stopped
-    networks:
-      - caddy-internal
-    labels:
-      - flame.type=application
-      - flame.name=StirlingPDF
-      - flame.url=${STIRLING_PDF_URL}
       - flame.icon=custom
       - com.centurylinklabs.watchtower.enable=true
 
