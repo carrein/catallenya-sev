@@ -16,12 +16,10 @@ services:
       - ${FLAME_REVERSE_PROXY_PORT}:${FLAME_REVERSE_PROXY_PORT}
       - ${SYNCTHING_REVERSE_PROXY_PORT}:${SYNCTHING_REVERSE_PROXY_PORT}
       - ${IMMICH_REVERSE_PROXY_PORT}:${IMMICH_REVERSE_PROXY_PORT}
-      - ${MEMOS_REVERSE_PROXY_PORT}:${MEMOS_REVERSE_PROXY_PORT}
       - ${VAULTWARDEN_REVERSE_PROXY_PORT}:${VAULTWARDEN_REVERSE_PROXY_PORT}
       - ${RADICALE_REVERSE_PROXY_PORT}:${RADICALE_REVERSE_PROXY_PORT}
       - ${AGENDAV_REVERSE_PROXY_PORT}:${AGENDAV_REVERSE_PROXY_PORT}
       - ${NTFY_REVERSE_PROXY_PORT}:${NTFY_REVERSE_PROXY_PORT}
-      - ${PINGVIN_SHARE_REVERSE_PROXY_PORT}:${PINGVIN_SHARE_REVERSE_PROXY_PORT}
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./tailscale/tmp/tailscaled.sock:/var/run/tailscale/tailscaled.sock
@@ -204,7 +202,7 @@ services:
   # Database component of Immich. The specific image version is tagged to the example provided in Immich documentations. 
   database:
     container_name: immich_postgres
-    image: tensorchord/pgvecto-rs:pg14-v0.1.11
+    image: tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
     restart: unless-stopped
     networks:
       - caddy-internal
@@ -324,34 +322,6 @@ services:
     secrets:
       - cloudflared-token
     labels:
-      - com.centurylinklabs.watchtower.enable=true
-
-  # Pingvin-share is a file-sharing platform.
-  pingvin-share:
-    container_name: pingvin-share
-    image: stonith404/pingvin-share
-    restart: unless-stopped
-    networks:
-      - caddy-internal
-    volumes:
-      - ${PINGVIN_SHARE_DATA_VOLUME}:/opt/app/backend/data
-      - ${PINGVIN_SHARE_IMAGES_VOLUME}:/opt/app/frontend/public/img
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-  
-  memos:
-    container_name: memos
-    image: neosmemo/memos:latest
-    restart: unless-stopped
-    networks:
-      - caddy-internal
-    volumes:
-      - ${MEMOS_VOLUME}:/var/opt/memos
-    labels:
-      - flame.type=application
-      - flame.name=Memos
-      - flame.url=${MEMOS_URL}
-      - flame.icon=custom
       - com.centurylinklabs.watchtower.enable=true
 
 secrets:

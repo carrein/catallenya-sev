@@ -10,10 +10,6 @@
     reverse_proxy immich-server:3001
 }
 
-{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$MEMOS_REVERSE_PROXY_PORT} {
-    reverse_proxy memos:5230
-}
-
 {$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$VAULTWARDEN_REVERSE_PROXY_PORT} {
     reverse_proxy vaultwarden:80
 }
@@ -50,8 +46,4 @@
       header_up X-Forwarded-For {remote}
       header_up X-Real-IP {remote}
     }
-}
-
-:{$PINGVIN_SHARE_REVERSE_PROXY_PORT} {
-  reverse_proxy pingvin-share:3000
 }
