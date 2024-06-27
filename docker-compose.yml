@@ -20,6 +20,7 @@ services:
       - ${RADICALE_REVERSE_PROXY_PORT}:${RADICALE_REVERSE_PROXY_PORT}
       - ${AGENDAV_REVERSE_PROXY_PORT}:${AGENDAV_REVERSE_PROXY_PORT}
       - ${NTFY_REVERSE_PROXY_PORT}:${NTFY_REVERSE_PROXY_PORT}
+      - ${PINGVIN_SHARE_REVERSE_PROXY_PORT}:${PINGVIN_SHARE_REVERSE_PROXY_PORT}
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./tailscale/tmp/tailscaled.sock:/var/run/tailscale/tailscaled.sock
@@ -158,31 +159,10 @@ services:
     restart: unless-stopped
     networks:
       - caddy-internal
-    command: [ "start.sh", "immich" ]
     env_file:
       - .env
     ports:
      - 2283:3001
-    volumes:
-      - ${IMMICH_VOLUME}:/usr/src/app/upload
-    depends_on:
-      - redis
-      - database
-
-  # Background jobs service component for Immich.
-  immich-microservices:
-    container_name: immich_microservices
-    image: ghcr.io/immich-app/immich-server:release
-    restart: unless-stopped
-    networks:
-      - caddy-internal
-    # See: https://documentation.immich.app/docs/features/hardware-transcoding
-    # extends:
-    #   file: hwaccel.yml
-    #   service: hwaccel
-    command: [ "start.sh", "microservices" ]
-    env_file:
-      - .env
     volumes:
       - ${IMMICH_VOLUME}:/usr/src/app/upload
     depends_on:
@@ -321,6 +301,19 @@ services:
     command: tunnel -credentials-file /run/secrets/cloudflared-token run catallenya-sev
     secrets:
       - cloudflared-token
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+  # Pingvin-share is a file-sharing platform.
+  pingvin-share:
+    container_name: pingvin-share
+    image: stonith404/pingvin-share
+    restart: unless-stopped
+    networks:
+      - caddy-internal
+    volumes:
+      - ${PINGVIN_SHARE_DATA_VOLUME}:/opt/app/backend/data
+      - ${PINGVIN_SHARE_IMAGES_VOLUME}:/opt/app/frontend/public/img
     labels:
       - com.centurylinklabs.watchtower.enable=true
 

@@ -30,6 +30,10 @@
     reverse_proxy ntfy:80
 }
 
+:{$PINGVIN_SHARE_REVERSE_PROXY_PORT} {
+  reverse_proxy pingvin-share:3000
+}
+
 # We configure our own reverse proxy for Ghost. Since we are handling the SSL termination,
 # we set headers to coerce Ghost to trust the connection.
 # See: 
