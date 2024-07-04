@@ -270,6 +270,10 @@ services:
     volumes:
       - ${GHOST_VOLUME}:/var/lib/ghost/content
     labels:
+      - flame.type=application
+      - flame.name=Ghost
+      - flame.url=${GHOST_URL}
+      - flame.icon=custom
       - com.centurylinklabs.watchtower.enable=true
 
   # Ntfy is our notification service that dispatches a message when a scheduled service is completed i.e. restic backup, or a service is updated i.e. watchtower update.
