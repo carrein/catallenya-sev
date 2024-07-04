@@ -22,7 +22,7 @@
     reverse_proxy agendav:8080
 }
 
-{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$GHOST_REVERSE_PROXY_PORT} {
+{$TAILNET_DOMAIN}.{$TAILNET_DNS_NAME}:{$GHOST_REVERSE_PROXY_CADDY_PORT} {
     reverse_proxy ghost:2368
 }
 
